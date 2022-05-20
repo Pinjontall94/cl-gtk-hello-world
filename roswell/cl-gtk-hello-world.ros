@@ -1,0 +1,23 @@
+#!/bin/sh
+#|-*- mode:lisp -*-|#
+#|
+exec ros -Q -- $0 "$@"
+|#
+
+;; Use `+Q`  if you don't have Quicklisp dependencies to save startup time.
+(progn ;;init forms
+  (ros:ensure-asdf)
+  #+quicklisp(ql:quickload '(:cl-gtk-hello-world) :silent t)
+  )
+
+(defun help ()
+  (format t "~&Usage:
+ 
+  cl-gtk-hello-world [name]
+"))
+ 
+(defun main (&rest argv)
+  "Optional name parameter."
+  ;; CLI args parsing is done in %main.
+  (cl-gtk-hello-world::%main argv))
+;;; vim: set ft=lisp lisp:
